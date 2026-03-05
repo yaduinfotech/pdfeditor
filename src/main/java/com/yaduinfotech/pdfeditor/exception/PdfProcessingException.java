@@ -1,4 +1,4 @@
-package com.upas.pdfeditor.exception;
+package com.yaduinfotech.pdfeditor.exception;
 
 public class PdfProcessingException extends RuntimeException {
 

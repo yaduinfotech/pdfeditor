@@ -1,7 +1,7 @@
-package com.upas.pdfeditor;
+package com.yaduinfotech.pdfeditor;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.upas.pdfeditor.config.JsonConfig;
+import com.yaduinfotech.pdfeditor.config.JsonConfig;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -58,7 +58,7 @@ public class PdfController {
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION,
                         "attachment; filename=processed.pdf")
-                .contentType(MediaType.APPLICATION_PDF)
+                .contentType(MediaType.parseMediaType("application/pdf"))
                 .body(processed);
     }
 
@@ -90,7 +90,7 @@ public class PdfController {
             );
 
             return ResponseEntity.ok()
-                    .contentType(MediaType.APPLICATION_PDF)
+                    .contentType(MediaType.parseMediaType("application/pdf"))
                     .body(processed);
         } catch (Exception e) {
             throw new RuntimeException(e);

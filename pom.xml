@@ -8,10 +8,10 @@
 		<version>3.4.0</version>
 		<relativePath/>
 	</parent>
-	<groupId>com.upas</groupId>
+	<groupId>com.yaduinfotech</groupId>
 	<artifactId>pdfeditor</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>pdfeditor</name>
+	<version>0.0.1</version>
+	<name>pdfEditor</name>
 	<description>PDF Editor for Online Forms</description>
 	<properties>
 		<java.version>21</java.version>
@@ -89,7 +89,7 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 
 				<configuration>
-					<mainClass>com.upas.pdfeditor.PdfEditorApplication</mainClass>
+					<mainClass>com.yaduinfotech.pdfeditor.PdfEditorApplication</mainClass>
 				</configuration>
 
 				<executions>

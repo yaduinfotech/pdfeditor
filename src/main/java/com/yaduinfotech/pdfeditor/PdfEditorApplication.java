@@ -1,4 +1,4 @@
-package com.upas.pdfeditor;
+package com.yaduinfotech.pdfeditor;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

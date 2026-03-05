@@ -1,7 +1,7 @@
-package com.upas.pdfeditor;
+package com.yaduinfotech.pdfeditor;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.upas.pdfeditor.config.JsonConfig;
+import com.yaduinfotech.pdfeditor.config.JsonConfig;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

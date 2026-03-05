@@ -1,4 +1,4 @@
-package com.upas.pdfeditor.config;
+package com.yaduinfotech.pdfeditor.config;
 
 import lombok.Data;
 import java.util.List;

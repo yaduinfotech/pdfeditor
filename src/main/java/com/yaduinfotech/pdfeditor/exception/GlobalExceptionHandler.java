@@ -1,4 +1,4 @@
-package com.upas.pdfeditor.exception;
+package com.yaduinfotech.pdfeditor.exception;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;

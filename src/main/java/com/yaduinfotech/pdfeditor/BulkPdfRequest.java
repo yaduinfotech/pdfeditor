@@ -1,4 +1,4 @@
-package com.upas.pdfeditor;
+package com.yaduinfotech.pdfeditor;
 
 import java.util.List;
 

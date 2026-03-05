@@ -1,4 +1,4 @@
-package com.upas.pdfeditor.config;
+package com.yaduinfotech.pdfeditor.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;

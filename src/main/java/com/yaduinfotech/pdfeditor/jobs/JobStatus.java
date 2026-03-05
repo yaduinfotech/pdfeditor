@@ -1,4 +1,4 @@
-package com.upas.pdfeditor.jobs;
+package com.yaduinfotech.pdfeditor.jobs;
 
 public enum JobStatus {
     QUEUED,

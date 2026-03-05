@@ -1,4 +1,4 @@
-package com.upas.pdfeditor.jobs;
+package com.yaduinfotech.pdfeditor.jobs;
 
 import org.springframework.stereotype.Component;
 import java.util.Collection;

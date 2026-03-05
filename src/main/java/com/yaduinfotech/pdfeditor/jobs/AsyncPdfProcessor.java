@@ -1,8 +1,10 @@
-package com.upas.pdfeditor.jobs;
+package com.yaduinfotech.pdfeditor.jobs;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.upas.pdfeditor.*;
-import com.upas.pdfeditor.PdfService;
+import com.yaduinfotech.pdfeditor.BulkPdfRequest;
+import com.yaduinfotech.pdfeditor.PdfJob;
+import com.yaduinfotech.pdfeditor.PdfService;
+
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 

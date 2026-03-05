@@ -1,8 +1,8 @@
-package com.upas.pdfeditor;
+package com.yaduinfotech.pdfeditor;
 
-import com.upas.pdfeditor.jobs.AsyncPdfProcessor;
-import com.upas.pdfeditor.jobs.JobStore;
-import com.upas.pdfeditor.jobs.PdfJobStatus;
+import com.yaduinfotech.pdfeditor.jobs.AsyncPdfProcessor;
+import com.yaduinfotech.pdfeditor.jobs.JobStore;
+import com.yaduinfotech.pdfeditor.jobs.PdfJobStatus;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;

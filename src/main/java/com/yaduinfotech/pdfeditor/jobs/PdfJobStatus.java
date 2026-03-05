@@ -1,4 +1,4 @@
-package com.upas.pdfeditor.jobs;
+package com.yaduinfotech.pdfeditor.jobs;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;

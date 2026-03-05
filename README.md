@@ -127,7 +127,7 @@ spring.servlet.multipart.max-file-size=200MB
 spring.servlet.multipart.max-request-size=200MB
 
 # Logging
-logging.level.com.upas.pdfeditor=DEBUG
+logging.level.com.yaduinfotech.pdfeditor=DEBUG
 logging.file.name=logs/pdfeditor.log
 ```
 
@@ -211,7 +211,7 @@ logging.file.name=logs/pdfeditor.log
 ```
 pdfeditor/
 ├── src/main/
-│   ├── java/com/upas/pdfeditor/
+│   ├── java/com/yaduinfotech/pdfeditor/
 │   │   ├── PdfEditorApplication.java    # Main application class
 │   │   ├── PdfController.java           # REST controller for PDF processing
 │   │   ├── AsyncPdfController.java      # REST controller for batch processing
@@ -232,5 +232,5 @@ pdfeditor/
 
 ## License
 
-This project is proprietary software developed by UPAS.
+This project is proprietary software developed by YaduInfotech.
 

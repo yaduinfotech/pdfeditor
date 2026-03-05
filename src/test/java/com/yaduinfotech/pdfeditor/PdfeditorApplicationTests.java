@@ -1,4 +1,4 @@
-package com.upas.pdfeditor;
+package com.yaduinfotech.pdfeditor;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

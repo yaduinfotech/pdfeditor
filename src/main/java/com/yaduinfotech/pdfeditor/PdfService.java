@@ -1,10 +1,10 @@
-package com.upas.pdfeditor;
+package com.yaduinfotech.pdfeditor;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.upas.pdfeditor.config.PdfProperties;
-import com.upas.pdfeditor.config.SignatureFieldConfig;
-import com.upas.pdfeditor.config.TextFieldConfig;
-import com.upas.pdfeditor.exception.PdfProcessingException;
+import com.yaduinfotech.pdfeditor.config.PdfProperties;
+import com.yaduinfotech.pdfeditor.config.SignatureFieldConfig;
+import com.yaduinfotech.pdfeditor.config.TextFieldConfig;
+import com.yaduinfotech.pdfeditor.exception.PdfProcessingException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.pdfbox.io.MemoryUsageSetting;
 import org.apache.pdfbox.pdmodel.*;
@@ -176,10 +176,10 @@ public class PdfService {
 
                     String value = values.get(key);
 
-                    cs.setNonStrokingColor(255, 255, 255); // White Color
+                    cs.setNonStrokingColor(1.0f, 1.0f, 1.0f); // White Color
                     cs.addRect(ph.x, yTop - 2, ph.width, ph.height * 3);
                     cs.fill();
-                    cs.setNonStrokingColor(0, 0, 0); // Black Color
+                    cs.setNonStrokingColor(0.0f, 0.0f, 0.0f); // Black Color
 
                     if (key.toUpperCase().startsWith("SIGN")) {
 
