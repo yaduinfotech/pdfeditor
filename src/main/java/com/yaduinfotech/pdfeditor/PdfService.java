@@ -73,6 +73,8 @@ public class PdfService {
 
             /* Fill existing AcroForm fields */
             if (config.getFormFields() != null) {
+                document.getDocumentCatalog().getCOSObject().setNeedToBeUpdated(true);
+                document.getDocumentCatalog().getAcroForm().getCOSObject().setNeedToBeUpdated(true);
                 fillFormFields(form, config.getFormFields());
             }
 
@@ -121,7 +123,7 @@ public class PdfService {
             if (hasExistingSignatures) {
                 try {
                     // Try incremental save - may fail if loaded from InputStream
-                    document.save(baos);
+                    document.saveIncremental(baos);
                     log.info("Saved with existing signatures (incremental save)");
                 } catch (Exception e) {
                     log.warn("Save with signatures warning: {}", e.getMessage());
@@ -660,6 +662,7 @@ public class PdfService {
         if (values == null || values.isEmpty()) {
             return;
         }
+        
 
         for (Map.Entry<String, String> entry : values.entrySet()) {
 
@@ -680,6 +683,12 @@ public class PdfService {
                 if (field instanceof PDSignatureField) {
                     continue; // never modify signature field
                 }
+                field.getCOSObject().setNeedToBeUpdated(true);
+                for (PDAnnotationWidget widget : field.getWidgets()) {
+                    widget.getCOSObject().setNeedToBeUpdated(true);
+                    widget.getAppearance().getCOSObject().setNeedToBeUpdated(true);
+                }
+
                 field.setValue(value);
             } else {
                 log.warn("Form field not found in PDF: {}", fieldName);
