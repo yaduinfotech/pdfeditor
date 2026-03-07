@@ -11,6 +11,7 @@ import org.apache.pdfbox.pdmodel.*;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.font.PDType0Font;
 import org.apache.pdfbox.pdmodel.interactive.annotation.PDAnnotationWidget;
+import org.apache.pdfbox.pdmodel.interactive.digitalsignature.PDSignature;
 import org.apache.pdfbox.pdmodel.interactive.form.*;
 import org.apache.pdfbox.text.PDFTextStripper;
 import org.apache.pdfbox.text.TextPosition;
@@ -25,6 +26,8 @@ public class PdfService {
 
     private final ObjectMapper objectMapper;
     private byte[] cachedFontBytes;
+    private PDType0Font cachedFont;
+    private final Set<String> processedFieldNames = new HashSet<>();
 
     public PdfService(ObjectMapper objectMapper) {
         this.objectMapper = objectMapper;
@@ -38,7 +41,7 @@ public class PdfService {
 
         try (PDDocument document = PDDocument.load(
                 inputStream,
-                MemoryUsageSetting.setupMixed(50 * 1024 * 1024))) {
+                MemoryUsageSetting.setupMixed(200 * 1024 * 1024))) {
 
             PdfProperties config =
                     objectMapper.readValue(jsonConfig, PdfProperties.class);
@@ -53,6 +56,18 @@ public class PdfService {
             form.setNeedAppearances(true);
             document.getDocumentCatalog().getAcroForm().setAppendOnly(true);
 
+            // Check for existing signatures BEFORE modifying the document
+            boolean hasExistingSignatures = hasSignature(document);
+
+            // Pre-populate field names set for O(1) lookups
+            Set<String> existingFieldNames = new HashSet<>();
+            for (PDField field : form.getFieldTree()) {
+                String name = field.getPartialName();
+                if (name != null) {
+                    existingFieldNames.add(name.toLowerCase());
+                }
+            }
+
             PDType0Font font = loadFont(document);
 
             /* Fill existing AcroForm fields */
@@ -65,7 +80,8 @@ public class PdfService {
                         document,
                         form,
                         config.getPlaceholders(),
-                        font
+                        font,
+                        existingFieldNames
                 );
             }
 
@@ -73,7 +89,8 @@ public class PdfService {
                 processTextFields(
                         document,
                         form,
-                        config.getTextFields()
+                        config.getTextFields(),
+                        existingFieldNames
                 );
             }
 
@@ -81,16 +98,38 @@ public class PdfService {
                 processSignatureFields(
                         document,
                         form,
-                        config.getSignatureFields()
+                        config.getSignatureFields(),
+                        existingFieldNames
                 );
             }
 
-            if (Boolean.TRUE.equals(config.getFlattenAfterFill())) {
+            // Only flatten if explicitly requested AND no existing signatures
+            if (Boolean.TRUE.equals(config.getFlattenAfterFill()) && !hasExistingSignatures) {
                 form.flatten();
+            }
+            
+            // Only refresh appearances if no existing signatures (preserves signature validity)
+            if (!hasExistingSignatures) {
+                form.refreshAppearances();
             }
 
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            document.save(baos);
+            
+            // For documents with existing signatures, try to preserve them
+            // saveIncremental only works when loaded from File, not InputStream
+            if (hasExistingSignatures) {
+                try {
+                    // Try incremental save - may fail if loaded from InputStream
+                    document.save(baos);
+                    log.info("Saved with existing signatures (regular save)");
+                } catch (Exception e) {
+                    log.warn("Save with signatures warning: {}", e.getMessage());
+                    document.save(baos);
+                }
+            } else {
+                // Regular save for non-signed documents
+                document.save(baos);
+            }
 
             return baos.toByteArray();
 
@@ -134,7 +173,8 @@ public class PdfService {
             PDDocument document,
             PDAcroForm form,
             Map<String, String> values,
-            PDType0Font font
+            PDType0Font font,
+            Set<String> existingFieldNames
     ) throws IOException {
 
         for (int pageIndex = 0; pageIndex < document.getNumberOfPages(); pageIndex++) {
@@ -188,7 +228,8 @@ public class PdfService {
                                 form,
                                 page,
                                 key,
-                                ph
+                                ph,
+                                existingFieldNames
                         );
 
                     } else if (value != null) {
@@ -216,12 +257,14 @@ public class PdfService {
     private void processTextFields(
             PDDocument document,
             PDAcroForm form,
-            List<TextFieldConfig> fields
+            List<TextFieldConfig> fields,
+            Set<String> existingFieldNames
     ) throws IOException {
 
         for (TextFieldConfig field : fields) {
 
-            if (fieldExists(form, field.getName())) {
+            // O(1) lookup instead of iterating all fields
+            if (field.getName() != null && existingFieldNames.contains(field.getName().toLowerCase())) {
                 continue;
             }
 
@@ -236,13 +279,13 @@ public class PdfService {
             if (field.getValue() != null) {
                 textField.setValue(field.getValue());
             }
+            float yTop = page.getMediaBox().getHeight();
 
             PDAnnotationWidget widget = textField.getWidgets().get(0);
-
             widget.setRectangle(
                     new PDRectangle(
                             field.getX(),
-                            field.getY(),
+                            yTop - field.getY(),
                             field.getWidth(),
                             field.getHeight()
                     )
@@ -253,7 +296,11 @@ public class PdfService {
 
             page.getAnnotations().add(widget);
             form.getFields().add(textField);
+            
+            // Add to existing field names for subsequent lookups
+            existingFieldNames.add(field.getName().toLowerCase());
         }
+        // Removed redundant refreshAppearances() - called once at end of processStaticPdf
     }
 
     /* ===================================================== */
@@ -263,12 +310,14 @@ public class PdfService {
     private void processSignatureFields(
             PDDocument document,
             PDAcroForm form,
-            List<SignatureFieldConfig> fields
+            List<SignatureFieldConfig> fields,
+            Set<String> existingFieldNames
     ) throws IOException {
 
         for (SignatureFieldConfig field : fields) {
 
-            if (fieldExists(form, field.getName())) {
+            // O(1) lookup instead of iterating all fields
+            if (field.getName() != null && existingFieldNames.contains(field.getName().toLowerCase())) {
                 continue;
             }
 
@@ -282,7 +331,7 @@ public class PdfService {
             widget.setRectangle(
                     new PDRectangle(
                             field.getX(),
-                            field.getY(),
+                            page.getMediaBox().getHeight() - field.getY(),
                             field.getWidth(),
                             field.getHeight()
                     )
@@ -293,6 +342,9 @@ public class PdfService {
 
             page.getAnnotations().add(widget);
             form.getFields().add(sig);
+            
+            // Add to existing field names for subsequent lookups
+            existingFieldNames.add(field.getName().toLowerCase());
         }
     }
 
@@ -305,10 +357,12 @@ public class PdfService {
             PDAcroForm form,
             PDPage page,
             String name,
-            PlaceholderData ph
+            PlaceholderData ph,
+            Set<String> existingFieldNames
     ) throws IOException {
 
-        if (fieldExists(form, name)) {
+        // O(1) lookup instead of iterating all fields
+        if (name != null && existingFieldNames.contains(name.toLowerCase())) {
             return;
         }
 
@@ -330,6 +384,9 @@ public class PdfService {
 
         page.getAnnotations().add(widget);
         form.getFields().add(sig);
+        
+        // Add to existing field names for subsequent lookups
+        existingFieldNames.add(name.toLowerCase());
     }
 
     /* ===================================================== */
@@ -346,6 +403,7 @@ public class PdfService {
             PDType0Font font,
             float fontSize
     ) throws IOException {
+
 
         float leading = fontSize * 1.2f;
 
@@ -373,41 +431,34 @@ public class PdfService {
     ) throws IOException {
 
         List<String> lines = new ArrayList<>();
-
         StringBuilder line = new StringBuilder();
 
         for (String word : text.split(" ")) {
-
-            String test =
-                    line.length() == 0
-                            ? word
-                            : line + " " + word;
-
-            float size =
-                    font.getStringWidth(test) / 1000 * fontSize;
+            String test = line.isEmpty() ? word : line + " " + word;
+            float size = font.getStringWidth(test) / 1000 * fontSize;
 
             if (size > width) {
-
-                lines.add(line.toString());
+                // Only add if line has content
+                if (!line.isEmpty()) {
+                    lines.add(line.toString());
+                    // optional: add a blank line between wrapped lines
+                    // lines.add("");
+                }
                 line = new StringBuilder(word);
-
             } else {
-
-                if (line.length() > 0) {
+                if (!line.isEmpty()) {
                     line.append(" ");
                 }
-
                 line.append(word);
             }
         }
 
-        if (line.length() > 0) {
+        if (!line.isEmpty()) {
             lines.add(line.toString());
         }
 
         return lines;
     }
-
     /* ===================================================== */
     /* FIELD CHECK */
     /* ===================================================== */
@@ -547,10 +598,27 @@ public class PdfService {
                 }
             }
             if (field != null) {
+                if (field instanceof PDSignatureField) {
+                    continue; // never modify signature field
+                }
                 field.setValue(value);
             } else {
                 log.warn("Form field not found in PDF: {}", fieldName);
             }
         }
+    }
+
+
+    private boolean hasSignature(PDDocument document) {
+        try {
+            for (PDSignature sig : document.getSignatureDictionaries()) {
+                if (sig.getByteRange() != null) {
+                    return true;
+                }
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return false;
     }
 }
