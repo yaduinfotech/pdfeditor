@@ -311,3 +311,256 @@ org.springframework.web.servlet.resource.NoResourceFoundException: No static res
 2026-03-07 13:22:58 [http-nio-0.0.0.0-8080-exec-5] WARN  o.a.p.p.i.form.PDSignatureField - Appearance generation for signature fields not implemented here. You need to generate/update that manually, see the CreateVisibleSignature*.java files in the examples subproject of the source code download
 2026-03-07 13:22:58 [http-nio-0.0.0.0-8080-exec-5] WARN  o.a.p.p.i.form.PDSignatureField - Appearance generation for signature fields not implemented here. You need to generate/update that manually, see the CreateVisibleSignature*.java files in the examples subproject of the source code download
 2026-03-07 13:22:58 [http-nio-0.0.0.0-8080-exec-5] INFO  c.yaduinfotech.pdfeditor.PdfService - Saved with existing signatures (regular save)
+2026-03-07 13:23:57 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2026-03-07 13:23:57 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2026-03-07 13:24:44 [main] INFO  c.y.pdfeditor.PdfEditorApplication - Starting PdfEditorApplication using Java 21.0.10 with PID 30980 (D:\Java\pdfeditor\target\classes started by rasu2 in D:\Java\pdfeditor)
+2026-03-07 13:24:44 [main] DEBUG c.y.pdfeditor.PdfEditorApplication - Running with Spring Boot v3.4.0, Spring v6.2.0
+2026-03-07 13:24:44 [main] INFO  c.y.pdfeditor.PdfEditorApplication - No active profile set, falling back to 1 default profile: "default"
+2026-03-07 13:24:47 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-03-07 13:24:47 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-03-07 13:24:47 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.33]
+2026-03-07 13:24:47 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-03-07 13:24:47 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 3059 ms
+2026-03-07 13:24:48 [main] INFO  o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page: class path resource [static/index.html]
+2026-03-07 13:24:49 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2026-03-07 13:24:49 [main] INFO  c.y.pdfeditor.PdfEditorApplication - Started PdfEditorApplication in 5.876 seconds (process running for 8.094)
+2026-03-07 13:24:55 [http-nio-0.0.0.0-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-03-07 13:24:55 [http-nio-0.0.0.0-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-03-07 13:24:55 [http-nio-0.0.0.0-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 7 ms
+2026-03-07 13:24:57 [http-nio-0.0.0.0-8080-exec-1] WARN  o.a.p.p.i.form.PDSignatureField - Appearance generation for signature fields not implemented here. You need to generate/update that manually, see the CreateVisibleSignature*.java files in the examples subproject of the source code download
+2026-03-07 13:24:58 [http-nio-0.0.0.0-8080-exec-1] WARN  o.a.p.p.i.form.PDSignatureField - Appearance generation for signature fields not implemented here. You need to generate/update that manually, see the CreateVisibleSignature*.java files in the examples subproject of the source code download
+2026-03-07 13:26:51 [http-nio-0.0.0.0-8080-exec-1] INFO  c.yaduinfotech.pdfeditor.PdfService - Saved with existing signatures (regular save)
+2026-03-07 13:27:18 [http-nio-0.0.0.0-8080-exec-2] WARN  o.a.p.p.i.form.PDSignatureField - Appearance generation for signature fields not implemented here. You need to generate/update that manually, see the CreateVisibleSignature*.java files in the examples subproject of the source code download
+2026-03-07 13:27:18 [http-nio-0.0.0.0-8080-exec-2] WARN  o.a.p.p.i.form.PDSignatureField - Appearance generation for signature fields not implemented here. You need to generate/update that manually, see the CreateVisibleSignature*.java files in the examples subproject of the source code download
+2026-03-07 13:27:49 [http-nio-0.0.0.0-8080-exec-2] INFO  c.yaduinfotech.pdfeditor.PdfService - Saved with existing signatures (regular save)
+2026-03-07 13:28:33 [http-nio-0.0.0.0-8080-exec-4] WARN  o.a.p.p.i.form.PDSignatureField - Appearance generation for signature fields not implemented here. You need to generate/update that manually, see the CreateVisibleSignature*.java files in the examples subproject of the source code download
+2026-03-07 13:28:33 [http-nio-0.0.0.0-8080-exec-4] WARN  o.a.p.p.i.form.PDSignatureField - Appearance generation for signature fields not implemented here. You need to generate/update that manually, see the CreateVisibleSignature*.java files in the examples subproject of the source code download
+2026-03-07 13:28:54 [http-nio-0.0.0.0-8080-exec-4] INFO  c.yaduinfotech.pdfeditor.PdfService - Saved with existing signatures (regular save)
+2026-03-07 13:29:15 [http-nio-0.0.0.0-8080-exec-3] WARN  o.a.p.p.i.form.PDSignatureField - Appearance generation for signature fields not implemented here. You need to generate/update that manually, see the CreateVisibleSignature*.java files in the examples subproject of the source code download
+2026-03-07 13:29:15 [http-nio-0.0.0.0-8080-exec-3] WARN  o.a.p.p.i.form.PDSignatureField - Appearance generation for signature fields not implemented here. You need to generate/update that manually, see the CreateVisibleSignature*.java files in the examples subproject of the source code download
+2026-03-07 13:29:24 [http-nio-0.0.0.0-8080-exec-3] INFO  c.yaduinfotech.pdfeditor.PdfService - Saved with existing signatures (regular save)
+2026-03-07 13:30:50 [http-nio-0.0.0.0-8080-exec-6] WARN  o.a.p.p.i.form.PDSignatureField - Appearance generation for signature fields not implemented here. You need to generate/update that manually, see the CreateVisibleSignature*.java files in the examples subproject of the source code download
+2026-03-07 13:30:50 [http-nio-0.0.0.0-8080-exec-6] WARN  o.a.p.p.i.form.PDSignatureField - Appearance generation for signature fields not implemented here. You need to generate/update that manually, see the CreateVisibleSignature*.java files in the examples subproject of the source code download
+2026-03-07 13:32:14 [http-nio-0.0.0.0-8080-exec-6] INFO  c.yaduinfotech.pdfeditor.PdfService - Saved with existing signatures (regular save)
+2026-03-07 20:27:05 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2026-03-07 20:27:05 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2026-03-07 20:27:16 [main] INFO  c.y.pdfeditor.PdfEditorApplication - Starting PdfEditorApplication using Java 21.0.10 with PID 21640 (D:\Java\pdfeditor\target\classes started by rasu2 in D:\Java\pdfeditor)
+2026-03-07 20:27:16 [main] DEBUG c.y.pdfeditor.PdfEditorApplication - Running with Spring Boot v3.4.0, Spring v6.2.0
+2026-03-07 20:27:16 [main] INFO  c.y.pdfeditor.PdfEditorApplication - No active profile set, falling back to 1 default profile: "default"
+2026-03-07 20:27:19 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-03-07 20:27:19 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-03-07 20:27:19 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.33]
+2026-03-07 20:27:19 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-03-07 20:27:19 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2867 ms
+2026-03-07 20:27:19 [main] INFO  o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page: class path resource [static/index.html]
+2026-03-07 20:27:20 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2026-03-07 20:27:20 [main] INFO  c.y.pdfeditor.PdfEditorApplication - Started PdfEditorApplication in 5.863 seconds (process running for 7.141)
+2026-03-07 20:27:28 [http-nio-0.0.0.0-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-03-07 20:27:28 [http-nio-0.0.0.0-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-03-07 20:27:28 [http-nio-0.0.0.0-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 4 ms
+2026-03-07 20:27:30 [http-nio-0.0.0.0-8080-exec-1] WARN  o.a.p.p.i.form.PDSignatureField - Appearance generation for signature fields not implemented here. You need to generate/update that manually, see the CreateVisibleSignature*.java files in the examples subproject of the source code download
+2026-03-07 20:27:31 [http-nio-0.0.0.0-8080-exec-1] WARN  o.a.p.p.i.form.PDSignatureField - Appearance generation for signature fields not implemented here. You need to generate/update that manually, see the CreateVisibleSignature*.java files in the examples subproject of the source code download
+2026-03-07 20:27:31 [http-nio-0.0.0.0-8080-exec-1] INFO  c.yaduinfotech.pdfeditor.PdfService - Saved with existing signatures (incremental save)
+2026-03-07 20:28:29 [http-nio-0.0.0.0-8080-exec-2] WARN  o.a.p.p.i.form.PDSignatureField - Appearance generation for signature fields not implemented here. You need to generate/update that manually, see the CreateVisibleSignature*.java files in the examples subproject of the source code download
+2026-03-07 20:28:29 [http-nio-0.0.0.0-8080-exec-2] WARN  o.a.p.p.i.form.PDSignatureField - Appearance generation for signature fields not implemented here. You need to generate/update that manually, see the CreateVisibleSignature*.java files in the examples subproject of the source code download
+2026-03-07 20:28:30 [http-nio-0.0.0.0-8080-exec-2] INFO  c.yaduinfotech.pdfeditor.PdfService - Saved with existing signatures (incremental save)
+2026-03-07 20:29:14 [http-nio-0.0.0.0-8080-exec-3] WARN  o.a.p.p.i.form.PDSignatureField - Appearance generation for signature fields not implemented here. You need to generate/update that manually, see the CreateVisibleSignature*.java files in the examples subproject of the source code download
+2026-03-07 20:29:14 [http-nio-0.0.0.0-8080-exec-3] WARN  o.a.p.p.i.form.PDSignatureField - Appearance generation for signature fields not implemented here. You need to generate/update that manually, see the CreateVisibleSignature*.java files in the examples subproject of the source code download
+2026-03-07 20:29:14 [http-nio-0.0.0.0-8080-exec-3] INFO  c.yaduinfotech.pdfeditor.PdfService - Saved with existing signatures (incremental save)
+2026-03-07 20:29:40 [http-nio-0.0.0.0-8080-exec-8] WARN  o.a.p.p.i.form.PDSignatureField - Appearance generation for signature fields not implemented here. You need to generate/update that manually, see the CreateVisibleSignature*.java files in the examples subproject of the source code download
+2026-03-07 20:29:40 [http-nio-0.0.0.0-8080-exec-8] WARN  o.a.p.p.i.form.PDSignatureField - Appearance generation for signature fields not implemented here. You need to generate/update that manually, see the CreateVisibleSignature*.java files in the examples subproject of the source code download
+2026-03-07 20:31:32 [http-nio-0.0.0.0-8080-exec-8] INFO  c.yaduinfotech.pdfeditor.PdfService - Saved with existing signatures (incremental save)
+2026-03-07 20:31:32 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2026-03-07 20:31:32 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2026-03-07 20:31:53 [main] INFO  c.y.pdfeditor.PdfEditorApplication - Starting PdfEditorApplication using Java 21.0.10 with PID 38928 (D:\Java\pdfeditor\target\classes started by rasu2 in D:\Java\pdfeditor)
+2026-03-07 20:31:53 [main] DEBUG c.y.pdfeditor.PdfEditorApplication - Running with Spring Boot v3.4.0, Spring v6.2.0
+2026-03-07 20:31:53 [main] INFO  c.y.pdfeditor.PdfEditorApplication - No active profile set, falling back to 1 default profile: "default"
+2026-03-07 20:31:55 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-03-07 20:31:55 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-03-07 20:31:55 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.33]
+2026-03-07 20:31:56 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-03-07 20:31:56 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2906 ms
+2026-03-07 20:31:56 [main] WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'asyncPdfController': Lookup method resolution failed
+2026-03-07 20:31:56 [main] INFO  o.a.catalina.core.StandardService - Stopping service [Tomcat]
+2026-03-07 20:31:56 [main] INFO  o.s.b.a.l.ConditionEvaluationReportLogger - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2026-03-07 20:31:56 [main] ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'asyncPdfController': Lookup method resolution failed
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.checkLookupMethods(AutowiredAnnotationBeanPostProcessor.java:498)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.determineCandidateConstructors(AutowiredAnnotationBeanPostProcessor.java:368)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.determineConstructorsFromBeanPostProcessors(AbstractAutowireCapableBeanFactory.java:1310)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1205)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:563)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:523)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:336)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:288)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:334)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.instantiateSingleton(DefaultListableBeanFactory.java:1122)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingleton(DefaultListableBeanFactory.java:1093)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:1030)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:987)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:627)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:752)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:439)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:318)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1361)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1350)
+	at com.yaduinfotech.pdfeditor.PdfEditorApplication.main(PdfEditorApplication.java:10)
+Caused by: java.lang.IllegalStateException: Failed to introspect Class [com.yaduinfotech.pdfeditor.AsyncPdfController] from ClassLoader [jdk.internal.loader.ClassLoaders$AppClassLoader@76ed5528]
+	at org.springframework.util.ReflectionUtils.getDeclaredMethods(ReflectionUtils.java:483)
+	at org.springframework.util.ReflectionUtils.doWithLocalMethods(ReflectionUtils.java:320)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.checkLookupMethods(AutowiredAnnotationBeanPostProcessor.java:476)
+	... 21 common frames omitted
+Caused by: java.lang.NoClassDefFoundError: PdfJobStatus
+	at java.base/java.lang.Class.getDeclaredMethods0(Native Method)
+	at java.base/java.lang.Class.privateGetDeclaredMethods(Class.java:3580)
+	at java.base/java.lang.Class.getDeclaredMethods(Class.java:2678)
+	at org.springframework.util.ReflectionUtils.getDeclaredMethods(ReflectionUtils.java:465)
+	... 23 common frames omitted
+Caused by: java.lang.ClassNotFoundException: PdfJobStatus
+	at java.base/jdk.internal.loader.BuiltinClassLoader.loadClass(BuiltinClassLoader.java:641)
+	at java.base/jdk.internal.loader.ClassLoaders$AppClassLoader.loadClass(ClassLoaders.java:188)
+	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:526)
+	... 27 common frames omitted
+2026-03-07 20:32:28 [main] INFO  c.y.pdfeditor.PdfEditorApplication - Starting PdfEditorApplication using Java 21.0.10 with PID 15968 (D:\Java\pdfeditor\target\classes started by rasu2 in D:\Java\pdfeditor)
+2026-03-07 20:32:28 [main] DEBUG c.y.pdfeditor.PdfEditorApplication - Running with Spring Boot v3.4.0, Spring v6.2.0
+2026-03-07 20:32:28 [main] INFO  c.y.pdfeditor.PdfEditorApplication - No active profile set, falling back to 1 default profile: "default"
+2026-03-07 20:32:30 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-03-07 20:32:30 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-03-07 20:32:30 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.33]
+2026-03-07 20:32:30 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-03-07 20:32:30 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2654 ms
+2026-03-07 20:32:31 [main] WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'asyncPdfController': Lookup method resolution failed
+2026-03-07 20:32:31 [main] INFO  o.a.catalina.core.StandardService - Stopping service [Tomcat]
+2026-03-07 20:32:31 [main] INFO  o.s.b.a.l.ConditionEvaluationReportLogger - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2026-03-07 20:32:31 [main] ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'asyncPdfController': Lookup method resolution failed
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.checkLookupMethods(AutowiredAnnotationBeanPostProcessor.java:498)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.determineCandidateConstructors(AutowiredAnnotationBeanPostProcessor.java:368)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.determineConstructorsFromBeanPostProcessors(AbstractAutowireCapableBeanFactory.java:1310)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1205)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:563)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:523)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:336)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:288)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:334)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.instantiateSingleton(DefaultListableBeanFactory.java:1122)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingleton(DefaultListableBeanFactory.java:1093)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:1030)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:987)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:627)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:752)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:439)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:318)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1361)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1350)
+	at com.yaduinfotech.pdfeditor.PdfEditorApplication.main(PdfEditorApplication.java:10)
+Caused by: java.lang.IllegalStateException: Failed to introspect Class [com.yaduinfotech.pdfeditor.AsyncPdfController] from ClassLoader [jdk.internal.loader.ClassLoaders$AppClassLoader@76ed5528]
+	at org.springframework.util.ReflectionUtils.getDeclaredMethods(ReflectionUtils.java:483)
+	at org.springframework.util.ReflectionUtils.doWithLocalMethods(ReflectionUtils.java:320)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.checkLookupMethods(AutowiredAnnotationBeanPostProcessor.java:476)
+	... 21 common frames omitted
+Caused by: java.lang.NoClassDefFoundError: BulkPdfRequest
+	at java.base/java.lang.Class.getDeclaredMethods0(Native Method)
+	at java.base/java.lang.Class.privateGetDeclaredMethods(Class.java:3580)
+	at java.base/java.lang.Class.getDeclaredMethods(Class.java:2678)
+	at org.springframework.util.ReflectionUtils.getDeclaredMethods(ReflectionUtils.java:465)
+	... 23 common frames omitted
+Caused by: java.lang.ClassNotFoundException: BulkPdfRequest
+	at java.base/jdk.internal.loader.BuiltinClassLoader.loadClass(BuiltinClassLoader.java:641)
+	at java.base/jdk.internal.loader.ClassLoaders$AppClassLoader.loadClass(ClassLoaders.java:188)
+	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:526)
+	... 27 common frames omitted
+2026-03-07 20:33:19 [main] INFO  c.y.pdfeditor.PdfEditorApplication - Starting PdfEditorApplication using Java 21.0.10 with PID 16672 (D:\Java\pdfeditor\target\classes started by rasu2 in D:\Java\pdfeditor)
+2026-03-07 20:33:19 [main] DEBUG c.y.pdfeditor.PdfEditorApplication - Running with Spring Boot v3.4.0, Spring v6.2.0
+2026-03-07 20:33:19 [main] INFO  c.y.pdfeditor.PdfEditorApplication - No active profile set, falling back to 1 default profile: "default"
+2026-03-07 20:33:32 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-03-07 20:33:32 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-03-07 20:33:32 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.33]
+2026-03-07 20:33:32 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-03-07 20:33:32 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 12496 ms
+2026-03-07 20:33:33 [main] INFO  o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page: class path resource [static/index.html]
+2026-03-07 20:33:37 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2026-03-07 20:33:37 [main] INFO  c.y.pdfeditor.PdfEditorApplication - Started PdfEditorApplication in 19.884 seconds (process running for 21.537)
+2026-03-07 20:37:46 [http-nio-0.0.0.0-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-03-07 20:37:46 [http-nio-0.0.0.0-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-03-07 20:37:46 [http-nio-0.0.0.0-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 0 ms
+2026-03-07 20:37:51 [http-nio-0.0.0.0-8080-exec-1] WARN  o.a.p.p.i.form.PDSignatureField - Appearance generation for signature fields not implemented here. You need to generate/update that manually, see the CreateVisibleSignature*.java files in the examples subproject of the source code download
+2026-03-07 20:37:51 [http-nio-0.0.0.0-8080-exec-1] WARN  o.a.p.p.i.form.PDSignatureField - Appearance generation for signature fields not implemented here. You need to generate/update that manually, see the CreateVisibleSignature*.java files in the examples subproject of the source code download
+2026-03-07 20:37:51 [http-nio-0.0.0.0-8080-exec-1] INFO  c.yaduinfotech.pdfeditor.PdfService - Saved with existing signatures (incremental save)
+2026-03-07 20:51:54 [http-nio-0.0.0.0-8080-exec-3] WARN  c.yaduinfotech.pdfeditor.PdfService - Form field not found in PDF: Manager Note
+2026-03-07 20:51:54 [http-nio-0.0.0.0-8080-exec-3] DEBUG c.yaduinfotech.pdfeditor.PdfService - Generated appearance for signature field widget
+2026-03-07 20:51:54 [http-nio-0.0.0.0-8080-exec-3] WARN  o.a.p.p.i.f.AppearanceGeneratorHelper - widget of field Customer Note has no rectangle, no appearance stream created
+2026-03-07 20:51:54 [http-nio-0.0.0.0-8080-exec-3] WARN  o.a.p.p.i.f.AppearanceGeneratorHelper - widget of field Manager Note has no rectangle, no appearance stream created
+2026-03-07 20:51:54 [http-nio-0.0.0.0-8080-exec-3] DEBUG c.yaduinfotech.pdfeditor.PdfService - Generated appearance for signature field widget
+2026-03-07 20:51:54 [http-nio-0.0.0.0-8080-exec-3] WARN  o.a.p.p.i.form.PDSignatureField - Appearance generation for signature fields not implemented here. You need to generate/update that manually, see the CreateVisibleSignature*.java files in the examples subproject of the source code download
+2026-03-07 20:51:54 [http-nio-0.0.0.0-8080-exec-3] WARN  o.a.p.p.i.form.PDSignatureField - Appearance generation for signature fields not implemented here. You need to generate/update that manually, see the CreateVisibleSignature*.java files in the examples subproject of the source code download
+2026-03-07 20:52:47 [http-nio-0.0.0.0-8080-exec-5] WARN  o.a.p.p.i.form.PDSignatureField - Appearance generation for signature fields not implemented here. You need to generate/update that manually, see the CreateVisibleSignature*.java files in the examples subproject of the source code download
+2026-03-07 20:52:47 [http-nio-0.0.0.0-8080-exec-5] WARN  o.a.p.p.i.form.PDSignatureField - Appearance generation for signature fields not implemented here. You need to generate/update that manually, see the CreateVisibleSignature*.java files in the examples subproject of the source code download
+2026-03-07 20:52:47 [http-nio-0.0.0.0-8080-exec-5] INFO  c.yaduinfotech.pdfeditor.PdfService - Saved with existing signatures (incremental save)
+2026-03-07 20:53:24 [http-nio-0.0.0.0-8080-exec-4] WARN  o.a.p.p.i.form.PDSignatureField - Appearance generation for signature fields not implemented here. You need to generate/update that manually, see the CreateVisibleSignature*.java files in the examples subproject of the source code download
+2026-03-07 20:53:25 [http-nio-0.0.0.0-8080-exec-4] WARN  o.a.p.p.i.form.PDSignatureField - Appearance generation for signature fields not implemented here. You need to generate/update that manually, see the CreateVisibleSignature*.java files in the examples subproject of the source code download
+2026-03-07 20:53:25 [http-nio-0.0.0.0-8080-exec-4] INFO  c.yaduinfotech.pdfeditor.PdfService - Saved with existing signatures (incremental save)
+2026-03-07 20:53:53 [http-nio-0.0.0.0-8080-exec-6] WARN  o.a.p.p.i.form.PDSignatureField - Appearance generation for signature fields not implemented here. You need to generate/update that manually, see the CreateVisibleSignature*.java files in the examples subproject of the source code download
+2026-03-07 20:53:53 [http-nio-0.0.0.0-8080-exec-6] WARN  o.a.p.p.i.form.PDSignatureField - Appearance generation for signature fields not implemented here. You need to generate/update that manually, see the CreateVisibleSignature*.java files in the examples subproject of the source code download
+2026-03-07 20:56:39 [http-nio-0.0.0.0-8080-exec-6] INFO  c.yaduinfotech.pdfeditor.PdfService - Saved with existing signatures (incremental save)
+2026-03-07 20:57:01 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2026-03-07 20:57:01 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2026-03-07 20:57:07 [main] INFO  c.y.pdfeditor.PdfEditorApplication - Starting PdfEditorApplication using Java 21.0.10 with PID 21216 (D:\Java\pdfeditor\target\classes started by rasu2 in D:\Java\pdfeditor)
+2026-03-07 20:57:07 [main] DEBUG c.y.pdfeditor.PdfEditorApplication - Running with Spring Boot v3.4.0, Spring v6.2.0
+2026-03-07 20:57:07 [main] INFO  c.y.pdfeditor.PdfEditorApplication - No active profile set, falling back to 1 default profile: "default"
+2026-03-07 20:57:09 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-03-07 20:57:09 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-03-07 20:57:09 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.33]
+2026-03-07 20:57:09 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-03-07 20:57:09 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2065 ms
+2026-03-07 20:57:10 [main] INFO  o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page: class path resource [static/index.html]
+2026-03-07 20:57:11 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2026-03-07 20:57:11 [main] INFO  c.y.pdfeditor.PdfEditorApplication - Started PdfEditorApplication in 4.245 seconds (process running for 5.041)
+2026-03-07 20:57:21 [http-nio-0.0.0.0-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-03-07 20:57:21 [http-nio-0.0.0.0-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-03-07 20:57:21 [http-nio-0.0.0.0-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 5 ms
+2026-03-07 20:57:22 [http-nio-0.0.0.0-8080-exec-1] WARN  o.a.p.p.i.form.PDSignatureField - Appearance generation for signature fields not implemented here. You need to generate/update that manually, see the CreateVisibleSignature*.java files in the examples subproject of the source code download
+2026-03-07 20:57:23 [http-nio-0.0.0.0-8080-exec-1] WARN  o.a.p.p.i.form.PDSignatureField - Appearance generation for signature fields not implemented here. You need to generate/update that manually, see the CreateVisibleSignature*.java files in the examples subproject of the source code download
+2026-03-07 20:57:48 [http-nio-0.0.0.0-8080-exec-1] WARN  o.a.p.p.i.form.PDSignatureField - Appearance generation for signature fields not implemented here. You need to generate/update that manually, see the CreateVisibleSignature*.java files in the examples subproject of the source code download
+2026-03-07 20:57:48 [http-nio-0.0.0.0-8080-exec-1] WARN  o.a.p.p.i.form.PDSignatureField - Appearance generation for signature fields not implemented here. You need to generate/update that manually, see the CreateVisibleSignature*.java files in the examples subproject of the source code download
+2026-03-07 20:57:48 [http-nio-0.0.0.0-8080-exec-1] INFO  c.yaduinfotech.pdfeditor.PdfService - Saved with existing signatures (incremental save)
+2026-03-07 20:58:13 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2026-03-07 20:58:13 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2026-03-07 20:58:19 [main] INFO  c.y.pdfeditor.PdfEditorApplication - Starting PdfEditorApplication using Java 21.0.10 with PID 9620 (D:\Java\pdfeditor\target\classes started by rasu2 in D:\Java\pdfeditor)
+2026-03-07 20:58:19 [main] DEBUG c.y.pdfeditor.PdfEditorApplication - Running with Spring Boot v3.4.0, Spring v6.2.0
+2026-03-07 20:58:19 [main] INFO  c.y.pdfeditor.PdfEditorApplication - No active profile set, falling back to 1 default profile: "default"
+2026-03-07 20:58:21 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-03-07 20:58:21 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-03-07 20:58:21 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.33]
+2026-03-07 20:58:22 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-03-07 20:58:22 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1981 ms
+2026-03-07 20:58:22 [main] INFO  o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page: class path resource [static/index.html]
+2026-03-07 20:58:23 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2026-03-07 20:58:24 [main] INFO  c.y.pdfeditor.PdfEditorApplication - Started PdfEditorApplication in 4.998 seconds (process running for 5.669)
+2026-03-07 20:58:26 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2026-03-07 20:58:26 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2026-03-07 20:58:32 [main] INFO  c.y.pdfeditor.PdfEditorApplication - Starting PdfEditorApplication using Java 21.0.10 with PID 11768 (D:\Java\pdfeditor\target\classes started by rasu2 in D:\Java\pdfeditor)
+2026-03-07 20:58:32 [main] DEBUG c.y.pdfeditor.PdfEditorApplication - Running with Spring Boot v3.4.0, Spring v6.2.0
+2026-03-07 20:58:32 [main] INFO  c.y.pdfeditor.PdfEditorApplication - No active profile set, falling back to 1 default profile: "default"
+2026-03-07 20:58:34 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-03-07 20:58:34 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-03-07 20:58:34 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.33]
+2026-03-07 20:58:34 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-03-07 20:58:34 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1857 ms
+2026-03-07 20:58:34 [main] INFO  o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page: class path resource [static/index.html]
+2026-03-07 20:58:35 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2026-03-07 20:58:35 [main] INFO  c.y.pdfeditor.PdfEditorApplication - Started PdfEditorApplication in 4.054 seconds (process running for 4.732)
+2026-03-07 20:58:43 [http-nio-0.0.0.0-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-03-07 20:58:43 [http-nio-0.0.0.0-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-03-07 20:58:43 [http-nio-0.0.0.0-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 17 ms
+2026-03-07 20:58:44 [http-nio-0.0.0.0-8080-exec-1] WARN  o.a.p.p.i.form.PDSignatureField - Appearance generation for signature fields not implemented here. You need to generate/update that manually, see the CreateVisibleSignature*.java files in the examples subproject of the source code download
+2026-03-07 20:58:45 [http-nio-0.0.0.0-8080-exec-1] WARN  o.a.p.p.i.form.PDSignatureField - Appearance generation for signature fields not implemented here. You need to generate/update that manually, see the CreateVisibleSignature*.java files in the examples subproject of the source code download
+2026-03-07 20:58:45 [http-nio-0.0.0.0-8080-exec-1] INFO  c.yaduinfotech.pdfeditor.PdfService - Saved with existing signatures (incremental save)

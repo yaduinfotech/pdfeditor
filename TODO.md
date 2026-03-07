@@ -10,7 +10,14 @@
   - [x] Lazy placeholder detection
 - [x] Optimize AsyncPdfProcessor.java
   - [x] Implement parallel bulk PDF processing using ExecutorService
+- [x] Fix signature field appearance generation warning
+  - [x] Add createSignatureFieldAppearance() helper method
+  - [x] Update processSignatureFields() to generate appearances
+  - [x] Update createSignatureField() to generate appearances
 
 ## Verification
 - [x] Build compiles successfully
+
+## Pending
+- [ ] Test application to verify warning is suppressed
 

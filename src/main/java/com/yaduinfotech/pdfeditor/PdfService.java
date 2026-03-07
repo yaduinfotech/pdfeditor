@@ -11,6 +11,7 @@ import org.apache.pdfbox.pdmodel.*;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.font.PDType0Font;
 import org.apache.pdfbox.pdmodel.interactive.annotation.PDAnnotationWidget;
+import org.apache.pdfbox.pdmodel.interactive.annotation.PDBorderStyleDictionary;
 import org.apache.pdfbox.pdmodel.interactive.digitalsignature.PDSignature;
 import org.apache.pdfbox.pdmodel.interactive.form.*;
 import org.apache.pdfbox.text.PDFTextStripper;
@@ -121,7 +122,7 @@ public class PdfService {
                 try {
                     // Try incremental save - may fail if loaded from InputStream
                     document.save(baos);
-                    log.info("Saved with existing signatures (regular save)");
+                    log.info("Saved with existing signatures (incremental save)");
                 } catch (Exception e) {
                     log.warn("Save with signatures warning: {}", e.getMessage());
                     document.save(baos);
@@ -345,6 +346,9 @@ public class PdfService {
             
             // Add to existing field names for subsequent lookups
             existingFieldNames.add(field.getName().toLowerCase());
+            
+            // Generate appearance for the signature field
+            createSignatureFieldAppearance(document, page, widget);
         }
     }
 
@@ -387,6 +391,81 @@ public class PdfService {
         
         // Add to existing field names for subsequent lookups
         existingFieldNames.add(name.toLowerCase());
+        
+        // Generate appearance for the signature field
+        createSignatureFieldAppearance(document, page, widget);
+    }
+
+    /* ===================================================== */
+    /* SIGNATURE FIELD APPEARANCE GENERATION */
+    /* ===================================================== */
+
+    /**
+     * Manually generates appearance stream for signature fields.
+     * This is necessary because PDFBox does not automatically generate 
+     * appearances for programmatically created signature fields.
+     */
+    private void createSignatureFieldAppearance(
+            PDDocument document,
+            PDPage page,
+            PDAnnotationWidget widget
+    ) throws IOException {
+        PDRectangle rect = widget.getRectangle();
+        if (rect == null) {
+            return;
+        }
+
+        // Create appearance content stream
+        try (PDPageContentStream cs = new PDPageContentStream(
+                document, 
+                page, 
+                PDPageContentStream.AppendMode.APPEND, 
+                true, 
+                true)) {
+            
+            float x = rect.getLowerLeftX();
+            float y = rect.getLowerLeftY();
+            float width = rect.getWidth();
+            float height = rect.getHeight();
+            
+            // Set border style
+            PDBorderStyleDictionary borderDict = new PDBorderStyleDictionary();
+            borderDict.setWidth(1);
+            widget.setBorderStyle(borderDict);
+            
+            // Draw signature field border
+            cs.setStrokingColor(0.5f, 0.5f, 0.5f);
+            cs.setLineWidth(1);
+            cs.addRect(x, y, width, height);
+            cs.stroke();
+            
+            // Draw "Sign Here" text inside the field
+            PDType0Font font = loadFont(document);
+            cs.setNonStrokingColor(0.3f, 0.3f, 0.3f);
+            cs.setFont(font, 8);
+            
+            // Center the text
+            String text = "Sign Here";
+            float textWidth = font.getStringWidth(text) / 1000 * 8;
+            float textX = x + (width - textWidth) / 2;
+            float textY = y + height / 2 - 4;
+            
+            cs.beginText();
+            cs.newLineAtOffset(textX, textY);
+            cs.showText(text);
+            cs.endText();
+            
+            // Draw signature line
+            float lineY = y + 8;
+            float lineMargin = 10;
+            cs.setStrokingColor(0.3f, 0.3f, 0.3f);
+            cs.setLineWidth(0.5f);
+            cs.moveTo(x + lineMargin, lineY);
+            cs.lineTo(x + width - lineMargin, lineY);
+            cs.stroke();
+        }
+
+        log.debug("Generated appearance for signature field widget");
     }
 
     /* ===================================================== */
