@@ -1,0 +1,1295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Async PDF Processor</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            opacity: 0.9;
+        }
+
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 15px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 20px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+
+        .nav-links a:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        .section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+        }
+
+        .section h2 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section h2 .icon {
+            width: 28px;
+            height: 28px;
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 14px;
+        }
+
+        /* File Upload Area */
+        .drop-zone {
+            border: 2px dashed #11998e;
+            border-radius: 8px;
+            padding: 40px;
+            text-align: center;
+            background: #f8fffc;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .drop-zone:hover, .drop-zone.dragover {
+            background: #e8faf5;
+            border-color: #38ef7d;
+        }
+
+        .drop-zone input[type="file"] {
+            display: none;
+        }
+
+        .drop-zone-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        .drop-zone p {
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .drop-zone .hint {
+            font-size: 12px;
+            color: #999;
+        }
+
+        /* File List */
+        .file-list {
+            margin-top: 20px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .file-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 12px 15px;
+            background: #f8f9fa;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .file-item .file-icon {
+            font-size: 24px;
+        }
+
+        .file-item .file-info {
+            flex: 1;
+        }
+
+        .file-item .file-name {
+            font-weight: 500;
+            color: #333;
+        }
+
+        .file-item .file-size {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .file-item .output-name {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .file-item .output-name input {
+            padding: 6px 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 13px;
+            width: 200px;
+        }
+
+        .file-item .remove-btn {
+            background: #dc3545;
+            color: white;
+            border: none;
+            width: 28px;
+            height: 28px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        /* Configuration Tabs */
+        .tabs {
+            display: flex;
+            border-bottom: 2px solid #e0e0e0;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            margin-bottom: -2px;
+            color: #666;
+            transition: all 0.3s;
+        }
+
+        .tab.active {
+            border-bottom-color: #11998e;
+            color: #11998e;
+            font-weight: 500;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Form Elements */
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #11998e;
+        }
+
+        /* Key-Value Editor */
+        .key-value-editor {
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            padding: 15px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .key-value-row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+            align-items: center;
+        }
+
+        .key-value-row input {
+            flex: 1;
+        }
+
+        /* Field List */
+        .field-list {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .field-item {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .field-item h4 {
+            margin-bottom: 10px;
+            color: #333;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+        }
+
+        .field-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        .field-grid.triple {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        @media (max-width: 600px) {
+            .field-grid, .field-grid.triple {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+            width: 100%;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(17, 153, 142, 0.4);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+            padding: 8px 16px;
+            font-size: 14px;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+
+        .btn-danger {
+            background: #dc3545;
+            color: white;
+            padding: 8px 12px;
+            font-size: 12px;
+        }
+
+        .btn-download {
+            background: #28a745;
+            color: white;
+            padding: 12px 30px;
+            font-size: 16px;
+        }
+
+        .btn-download:hover {
+            background: #218838;
+        }
+
+        /* Checkbox */
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            accent-color: #11998e;
+        }
+
+        /* Spinner */
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .spinner-dark {
+            border-color: rgba(17, 153, 142, 0.3);
+            border-top-color: #11998e;
+        }
+
+        /* Status Messages */
+        .status {
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 20px;
+            display: none;
+        }
+
+        .status.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+            display: block;
+        }
+
+        .status.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+            display: block;
+        }
+
+        .status.info {
+            background: #cce5ff;
+            color: #004085;
+            border: 1px solid #b8daff;
+            display: block;
+        }
+
+        /* Job Status Section */
+        .job-status-section {
+            display: none;
+            margin-top: 30px;
+        }
+
+        .job-status-section.active {
+            display: block;
+        }
+
+        .job-id-display {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .job-id-display .label {
+            font-weight: 500;
+            color: #666;
+        }
+
+        .job-id-display .job-id {
+            font-family: monospace;
+            font-size: 16px;
+            color: #11998e;
+            background: #e8faf5;
+            padding: 8px 15px;
+            border-radius: 4px;
+            flex: 1;
+        }
+
+        .copy-btn {
+            background: #11998e;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .copy-btn:hover {
+            background: #0d8a7f;
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            margin: 20px 0;
+        }
+
+        .progress-bar-wrapper {
+            background: #e9ecef;
+            border-radius: 10px;
+            height: 30px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-bar {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            height: 100%;
+            width: 0%;
+            transition: width 0.5s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .progress-text {
+            text-align: center;
+            margin-top: 10px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        /* Status Badge */
+        .status-badge {
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .status-badge.queued {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status-badge.processing {
+            background: #cce5ff;
+            color: #004085;
+        }
+
+        .status-badge.completed {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-badge.failed {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .action-buttons .btn {
+            flex: 1;
+        }
+
+        /* File Count */
+        .file-count {
+            text-align: center;
+            padding: 10px;
+            background: #f8fffc;
+            border-radius: 6px;
+            margin-top: 15px;
+            color: #11998e;
+            font-weight: 500;
+        }
+
+        .no-files {
+            text-align: center;
+            padding: 30px;
+            color: #999;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📄 Async PDF Processor</h1>
+            <p>Process multiple PDF files in background with real-time progress tracking</p>
+            <div class="nav-links">
+                <a href="/index.html">Single PDF</a>
+                <a href="/async-pdf.html">Batch Processing</a>
+                <a href="/job-status.html">Job Status</a>
+            </div>
+        </div>
+        
+        <div class="content">
+            <!-- File Upload Section -->
+            <div class="section">
+                <h2><span class="icon">📁</span> Upload PDFs</h2>
+                <div class="drop-zone" id="dropZone">
+                    <input type="file" id="pdfFiles" accept=".pdf" multiple>
+                    <div class="drop-zone-icon">📄</div>
+                    <p>Drag & drop PDF files here or click to browse</p>
+                    <span class="hint">Multiple files allowed (.pdf)</span>
+                </div>
+                <div class="file-count" id="fileCount"></div>
+                <div class="file-list" id="fileList"></div>
+            </div>
+
+            <!-- Configuration Section -->
+            <div class="section">
+                <h2><span class="icon">⚙️</span> Configuration</h2>
+                
+                <div class="tabs">
+                    <div class="tab active" data-tab="placeholders">Placeholders</div>
+                    <div class="tab" data-tab="textfields">Text Fields</div>
+                    <div class="tab" data-tab="signatures">Signatures</div>
+                    <div class="tab" data-tab="formfields">Form Fields</div>
+                </div>
+
+                <!-- Placeholders Tab -->
+                <div class="tab-content active" id="tab-placeholders">
+                    <p style="margin-bottom: 15px; color: #666; font-size: 14px;">
+                        Replace {{placeholder}} text in your PDFs with values
+                    </p>
+                    <div class="key-value-editor" id="placeholdersContainer">
+                        <div class="key-value-row">
+                            <input type="text" placeholder="Placeholder (e.g., {{name}})" class="ph-key">
+                            <input type="text" placeholder="Value" class="ph-value">
+                            <button class="btn btn-danger" onclick="removeRow(this)">✕</button>
+                        </div>
+                    </div>
+                    <button class="btn btn-secondary" onclick="addPlaceholderRow()" style="margin-top: 10px;">
+                        + Add Placeholder
+                    </button>
+                </div>
+
+                <!-- Text Fields Tab -->
+                <div class="tab-content" id="tab-textfields">
+                    <p style="margin-bottom: 15px; color: #666; font-size: 14px;">
+                        Add text fields at specific coordinates
+                    </p>
+                    <div class="field-list" id="textFieldsContainer">
+                        <div class="field-item">
+                            <h4>Text Field <button class="btn btn-danger" onclick="removeField(this)">✕</button></h4>
+                            <div class="field-grid">
+                                <div>
+                                    <label>Field Name</label>
+                                    <input type="text" placeholder="fieldName" class="tf-name">
+                                </div>
+                                <div>
+                                    <label>Value</label>
+                                    <input type="text" placeholder="Value" class="tf-value">
+                                </div>
+                                <div>
+                                    <label>Page (1-based)</label>
+                                    <input type="number" placeholder="1" class="tf-page" value="1">
+                                </div>
+                                <div>
+                                    <label>X Position</label>
+                                    <input type="number" placeholder="100" class="tf-x">
+                                </div>
+                                <div>
+                                    <label>Y Position</label>
+                                    <input type="number" placeholder="700" class="tf-y">
+                                </div>
+                                <div>
+                                    <label>Width</label>
+                                    <input type="number" placeholder="200" class="tf-width" value="200">
+                                </div>
+                                <div>
+                                    <label>Height</label>
+                                    <input type="number" placeholder="20" class="tf-height" value="20">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-secondary" onclick="addTextField()" style="margin-top: 10px;">
+                        + Add Text Field
+                    </button>
+                </div>
+
+                <!-- Signatures Tab -->
+                <div class="tab-content" id="tab-signatures">
+                    <p style="margin-bottom: 15px; color: #666; font-size: 14px;">
+                        Add signature fields at specific coordinates
+                    </p>
+                    <div class="field-list" id="signatureFieldsContainer">
+                        <div class="field-item">
+                            <h4>Signature Field <button class="btn btn-danger" onclick="removeField(this)">✕</button></h4>
+                            <div class="field-grid">
+                                <div>
+                                    <label>Field Name</label>
+                                    <input type="text" placeholder="signature" class="sf-name">
+                                </div>
+                                <div>
+                                    <label>Page (1-based)</label>
+                                    <input type="number" placeholder="1" class="sf-page" value="1">
+                                </div>
+                                <div>
+                                    <label>X Position</label>
+                                    <input type="number" placeholder="100" class="sf-x">
+                                </div>
+                                <div>
+                                    <label>Y Position</label>
+                                    <input type="number" placeholder="700" class="sf-y">
+                                </div>
+                                <div>
+                                    <label>Width</label>
+                                    <input type="number" placeholder="200" class="sf-width" value="200">
+                                </div>
+                                <div>
+                                    <label>Height</label>
+                                    <input type="number" placeholder="50" class="sf-height" value="50">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-secondary" onclick="addSignatureField()" style="margin-top: 10px;">
+                        + Add Signature Field
+                    </button>
+                </div>
+
+                <!-- Form Fields Tab -->
+                <div class="tab-content" id="tab-formfields">
+                    <p style="margin-bottom: 15px; color: #666; font-size: 14px;">
+                        Fill existing form fields in the PDFs
+                    </p>
+                    <div class="key-value-editor" id="formFieldsContainer">
+                        <div class="key-value-row">
+                            <input type="text" placeholder="Field Name" class="ff-key">
+                            <input type="text" placeholder="Value" class="ff-value">
+                            <button class="btn btn-danger" onclick="removeRow(this)">✕</button>
+                        </div>
+                    </div>
+                    <button class="btn btn-secondary" onclick="addFormFieldRow()" style="margin-top: 10px;">
+                        + Add Form Field
+                    </button>
+                </div>
+
+                <!-- Options -->
+                <div style="margin-top: 20px;">
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="flattenAfterFill">
+                        <label for="flattenAfterFill">Flatten PDF after filling (make non-editable)</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <button class="btn btn-primary" id="submitBtn" onclick="submitJob()">
+                Submit Batch Job
+            </button>
+
+            <div class="status" id="status"></div>
+
+            <!-- Job Status Section -->
+            <div class="job-status-section" id="jobStatusSection">
+                <div class="section" style="margin-bottom: 0;">
+                    <h2><span class="icon">📊</span> Job Status</h2>
+                    
+                    <div class="job-id-display">
+                        <span class="label">Job ID:</span>
+                        <span class="job-id" id="displayJobId"></span>
+                        <button class="copy-btn" onclick="copyJobId()">Copy</button>
+                    </div>
+
+                    <div style="text-align: center; margin-bottom: 15px;">
+                        <span class="status-badge" id="statusBadge">QUEUED</span>
+                    </div>
+
+                    <div class="progress-container" id="progressContainer">
+                        <div class="progress-bar-wrapper">
+                            <div class="progress-bar" id="progressBar">0%</div>
+                        </div>
+                        <div class="progress-text" id="progressText">
+                            Processing 0 of 0 files...
+                        </div>
+                    </div>
+
+                    <div class="action-buttons" id="actionButtons" style="display: none;">
+                        <button class="btn btn-download" id="downloadBtn" onclick="downloadResult()">
+                            📥 Download Result
+                        </button>
+                        <button class="btn btn-secondary" onclick="resetForm()">
+                            🔄 New Job
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // State
+        let files = [];
+        let currentJobId = null;
+        let statusPollInterval = null;
+
+        // Tab switching
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                
+                tab.classList.add('active');
+                document.getElementById('tab-' + tab.dataset.tab).classList.add('active');
+            });
+        });
+
+        // File Upload Handling
+        const dropZone = document.getElementById('dropZone');
+        const fileInput = document.getElementById('pdfFiles');
+
+        dropZone.addEventListener('click', () => fileInput.click());
+
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.classList.add('dragover');
+        });
+
+        dropZone.addEventListener('dragleave', () => {
+            dropZone.classList.remove('dragover');
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropZone.classList.remove('dragover');
+            handleFiles(e.dataTransfer.files);
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            handleFiles(e.target.files);
+        });
+
+        function handleFiles(fileList) {
+            for (const file of fileList) {
+                if (file.type === 'application/pdf') {
+                    const fileObj = {
+                        id: Date.now() + Math.random(),
+                        file: file,
+                        name: file.name,
+                        size: file.size,
+                        outputName: file.name.replace('.pdf', '_processed.pdf')
+                    };
+                    files.push(fileObj);
+                }
+            }
+            renderFileList();
+        }
+
+        function renderFileList() {
+            const container = document.getElementById('fileList');
+            const countEl = document.getElementById('fileCount');
+            
+            if (files.length === 0) {
+                container.innerHTML = '<div class="no-files">No files selected</div>';
+                countEl.textContent = '';
+                return;
+            }
+
+            countEl.textContent = `${files.length} file(s) selected`;
+
+            container.innerHTML = files.map(f => `
+                <div class="file-item" data-id="${f.id}">
+                    <span class="file-icon">📄</span>
+                    <div class="file-info">
+                        <div class="file-name">${f.name}</div>
+                        <div class="file-size">${formatFileSize(f.size)}</div>
+                    </div>
+                    <div class="output-name">
+                        <label style="font-size: 12px; margin: 0;">Output:</label>
+                        <input type="text" value="${f.outputName}" 
+                            onchange="updateOutputName('${f.id}', this.value)">
+                    </div>
+                    <button class="remove-btn" onclick="removeFile('${f.id}')">✕</button>
+                </div>
+            `).join('');
+        }
+
+        function formatFileSize(bytes) {
+            if (bytes < 1024) return bytes + ' B';
+            if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+            return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+        }
+
+        function removeFile(id) {
+            files = files.filter(f => f.id != id);
+            renderFileList();
+        }
+
+        function updateOutputName(id, name) {
+            const file = files.find(f => f.id == id);
+            if (file) {
+                file.outputName = name;
+            }
+        }
+
+        // Configuration Functions
+        function addPlaceholderRow() {
+            const container = document.getElementById('placeholdersContainer');
+            const row = document.createElement('div');
+            row.className = 'key-value-row';
+            row.innerHTML = `
+                <input type="text" placeholder="Placeholder (e.g., {{name}})" class="ph-key">
+                <input type="text" placeholder="Value" class="ph-value">
+                <button class="btn btn-danger" onclick="removeRow(this)">✕</button>
+            `;
+            container.appendChild(row);
+        }
+
+        function addFormFieldRow() {
+            const container = document.getElementById('formFieldsContainer');
+            const row = document.createElement('div');
+            row.className = 'key-value-row';
+            row.innerHTML = `
+                <input type="text" placeholder="Field Name" class="ff-key">
+                <input type="text" placeholder="Value" class="ff-value">
+                <button class="btn btn-danger" onclick="removeRow(this)">✕</button>
+            `;
+            container.appendChild(row);
+        }
+
+        function removeRow(btn) {
+            btn.parentElement.remove();
+        }
+
+        function addTextField() {
+            const container = document.getElementById('textFieldsContainer');
+            const field = document.createElement('div');
+            field.className = 'field-item';
+            field.innerHTML = `
+                <h4>Text Field <button class="btn btn-danger" onclick="removeField(this)">✕</button></h4>
+                <div class="field-grid">
+                    <div>
+                        <label>Field Name</label>
+                        <input type="text" placeholder="fieldName" class="tf-name">
+                    </div>
+                    <div>
+                        <label>Value</label>
+                        <input type="text" placeholder="Value" class="tf-value">
+                    </div>
+                    <div>
+                        <label>Page (1-based)</label>
+                        <input type="number" placeholder="1" class="tf-page" value="1">
+                    </div>
+                    <div>
+                        <label>X Position</label>
+                        <input type="number" placeholder="100" class="tf-x">
+                    </div>
+                    <div>
+                        <label>Y Position</label>
+                        <input type="number" placeholder="700" class="tf-y">
+                    </div>
+                    <div>
+                        <label>Width</label>
+                        <input type="number" placeholder="200" class="tf-width" value="200">
+                    </div>
+                    <div>
+                        <label>Height</label>
+                        <input type="number" placeholder="20" class="tf-height" value="20">
+                    </div>
+                </div>
+            `;
+            container.appendChild(field);
+        }
+
+        function addSignatureField() {
+            const container = document.getElementById('signatureFieldsContainer');
+            const field = document.createElement('div');
+            field.className = 'field-item';
+            field.innerHTML = `
+                <h4>Signature Field <button class="btn btn-danger" onclick="removeField(this)">✕</button></h4>
+                <div class="field-grid">
+                    <div>
+                        <label>Field Name</label>
+                        <input type="text" placeholder="signature" class="sf-name">
+                    </div>
+                    <div>
+                        <label>Page (1-based)</label>
+                        <input type="number" placeholder="1" class="sf-page" value="1">
+                    </div>
+                    <div>
+                        <label>X Position</label>
+                        <input type="number" placeholder="100" class="sf-x">
+                    </div>
+                    <div>
+                        <label>Y Position</label>
+                        <input type="number" placeholder="700" class="sf-y">
+                    </div>
+                    <div>
+                        <label>Width</label>
+                        <input type="number" placeholder="200" class="sf-width" value="200">
+                    </div>
+                    <div>
+                        <label>Height</label>
+                        <input type="number" placeholder="50" class="sf-height" value="50">
+                    </div>
+                </div>
+            `;
+            container.appendChild(field);
+        }
+
+        function removeField(btn) {
+            btn.closest('.field-item').remove();
+        }
+
+        // Collect Configuration
+        function getConfiguration() {
+            const config = {
+                placeholders: {},
+                textFields: [],
+                signatureFields: [],
+                formFields: {}
+            };
+
+            // Placeholders
+            document.querySelectorAll('#placeholdersContainer .key-value-row').forEach(row => {
+                const key = row.querySelector('.ph-key').value.trim();
+                const value = row.querySelector('.ph-value').value;
+                if (key) {
+                    config.placeholders[key] = value;
+                }
+            });
+
+            // Text fields
+            document.querySelectorAll('#textFieldsContainer .field-item').forEach(item => {
+                const tf = {
+                    name: item.querySelector('.tf-name').value,
+                    value: item.querySelector('.tf-value').value,
+                    page: parseInt(item.querySelector('.tf-page').value) || 1,
+                    x: parseFloat(item.querySelector('.tf-x').value) || 0,
+                    y: parseFloat(item.querySelector('.tf-y').value) || 0,
+                    width: parseFloat(item.querySelector('.tf-width').value) || 200,
+                    height: parseFloat(item.querySelector('.tf-height').value) || 20
+                };
+                if (tf.name) {
+                    config.textFields.push(tf);
+                }
+            });
+
+            // Signature fields
+            document.querySelectorAll('#signatureFieldsContainer .field-item').forEach(item => {
+                const sf = {
+                    name: item.querySelector('.sf-name').value,
+                    page: parseInt(item.querySelector('.sf-page').value) || 1,
+                    x: parseFloat(item.querySelector('.sf-x').value) || 0,
+                    y: parseFloat(item.querySelector('.sf-y').value) || 0,
+                    width: parseFloat(item.querySelector('.sf-width').value) || 200,
+                    height: parseFloat(item.querySelector('.sf-height').value) || 50
+                };
+                if (sf.name) {
+                    config.signatureFields.push(sf);
+                }
+            });
+
+            // Form fields
+            document.querySelectorAll('#formFieldsContainer .key-value-row').forEach(row => {
+                const key = row.querySelector('.ff-key').value.trim();
+                const value = row.querySelector('.ff-value').value;
+                if (key) {
+                    config.formFields[key] = value;
+                }
+            });
+
+            // Flatten option
+            config.flattenAfterFill = document.getElementById('flattenAfterFill').checked;
+
+            // Remove empty arrays/objects
+            if (Object.keys(config.placeholders).length === 0) {
+                delete config.placeholders;
+            }
+            if (config.textFields.length === 0) {
+                delete config.textFields;
+            }
+            if (config.signatureFields.length === 0) {
+                delete config.signatureFields;
+            }
+            if (Object.keys(config.formFields).length === 0) {
+                delete config.formFields;
+            }
+
+            return config;
+        }
+
+        // Submit Job
+        async function submitJob() {
+            if (files.length === 0) {
+                showStatus('Please select at least one PDF file', 'error');
+                return;
+            }
+
+            const submitBtn = document.getElementById('submitBtn');
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span class="spinner"></span> Submitting...';
+
+            try {
+                // Convert files to base64
+                const jobs = [];
+                
+                for (const fileObj of files) {
+                    const base64 = await fileToBase64(fileObj.file);
+                    jobs.push({
+                        fileBase64: base64,
+                        config: getConfiguration(),
+                        outputFileName: fileObj.outputName
+                    });
+                }
+
+                // Submit to API
+                const response = await fetch('/pdf/bulk/async', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ jobs: jobs })
+                });
+
+                if (!response.ok) {
+                    const error = await response.text();
+                    throw new Error(error || 'Failed to submit job');
+                }
+
+                const result = await response.json();
+                currentJobId = result.jobId;
+
+                // Show job status section
+                showJobStatus(result.jobId, result.totalFiles || jobs.length);
+                
+                // Start polling
+                startStatusPolling();
+
+                showStatus('Job submitted successfully! Processing in background.', 'info');
+                
+            } catch (error) {
+                showStatus('Error: ' + error.message, 'error');
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = 'Submit Batch Job';
+            }
+        }
+
+        function fileToBase64(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = () => {
+                    const base64 = reader.result.split(',')[1];
+                    resolve(base64);
+                };
+                reader.onerror = reject;
+                reader.readAsDataURL(file);
+            });
+        }
+
+        function showJobStatus(jobId, totalFiles) {
+            const section = document.getElementById('jobStatusSection');
+            section.classList.add('active');
+            
+            document.getElementById('displayJobId').textContent = jobId;
+            
+            const badge = document.getElementById('statusBadge');
+            badge.className = 'status-badge queued';
+            badge.textContent = 'QUEUED';
+            
+            const progressBar = document.getElementById('progressBar');
+            progressBar.style.width = '0%';
+            progressBar.textContent = '0%';
+            
+            document.getElementById('progressText').textContent = 
+                `Processing 0 of ${totalFiles} files...`;
+            
+            document.getElementById('actionButtons').style.display = 'none';
+            
+            // Scroll to job status
+            section.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function startStatusPolling() {
+            if (statusPollInterval) {
+                clearInterval(statusPollInterval);
+            }
+            
+            statusPollInterval = setInterval(async () => {
+                try {
+                    const response = await fetch(`/pdf/status/${currentJobId}`);
+                    const status = await response.json();
+                    
+                    updateJobStatus(status);
+                    
+                    if (status.status === 'COMPLETED' || status.status === 'FAILED') {
+                        clearInterval(statusPollInterval);
+                    }
+                } catch (error) {
+                    console.error('Error polling status:', error);
+                }
+            }, 2000);
+        }
+
+        function updateJobStatus(status) {
+            const statusValue = status.status || 'UNKNOWN';
+            const badge = document.getElementById('statusBadge');
+            badge.className = `status-badge ${statusValue.toLowerCase()}`;
+            badge.textContent = statusValue;
+
+            const totalFiles = status.totalFiles || 1;
+            const processedFiles = status.processedFiles || 0;
+            const percentage = totalFiles > 0 ? Math.round((processedFiles / totalFiles) * 100) : 0;
+
+            const progressBar = document.getElementById('progressBar');
+            progressBar.style.width = percentage + '%';
+            progressBar.textContent = percentage + '%';
+
+            document.getElementById('progressText').textContent = 
+                `Processing ${processedFiles} of ${totalFiles} files...`;
+
+            // Re-enable submit button for new job
+            const submitBtn = document.getElementById('submitBtn');
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = 'Submit Batch Job';
+
+            if (statusValue === 'COMPLETED') {
+                progressBar.style.width = '100%';
+                progressBar.textContent = '100%';
+                document.getElementById('progressText').textContent = 
+                    `Completed! ${totalFiles} files processed.`;
+                document.getElementById('actionButtons').style.display = 'flex';
+                document.getElementById('downloadBtn').disabled = false;
+            } else if (statusValue === 'FAILED') {
+                document.getElementById('progressText').textContent = 
+                    `Error: ${status.errorMessage || 'Unknown error'}`;
+                document.getElementById('actionButtons').style.display = 'flex';
+            }
+        }
+
+        function downloadResult() {
+            if (!currentJobId) return;
+            
+            const downloadBtn = document.getElementById('downloadBtn');
+            downloadBtn.disabled = true;
+            downloadBtn.innerHTML = '<span class="spinner spinner-dark"></span> Downloading...';
+
+            // Create download link
+            const link = document.createElement('a');
+            link.href = `/pdf/download/${currentJobId}`;
+            link.download = 'processed_pdfs.zip';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+
+            setTimeout(() => {
+                downloadBtn.disabled = false;
+                downloadBtn.innerHTML = '📥 Download Result';
+            }, 2000);
+        }
+
+        function copyJobId() {
+            const jobId = document.getElementById('displayJobId').textContent;
+            navigator.clipboard.writeText(jobId).then(() => {
+                const copyBtn = document.querySelector('.copy-btn');
+                copyBtn.textContent = 'Copied!';
+                setTimeout(() => {
+                    copyBtn.textContent = 'Copy';
+                }, 2000);
+            });
+        }
+
+        function resetForm() {
+            // Stop polling
+            if (statusPollInterval) {
+                clearInterval(statusPollInterval);
+                statusPollInterval = null;
+            }
+
+            // Reset state
+            currentJobId = null;
+            files = [];
+
+            // Reset UI
+            document.getElementById('jobStatusSection').classList.remove('active');
+            document.getElementById('fileList').innerHTML = '<div class="no-files">No files selected</div>';
+            document.getElementById('fileCount').textContent = '';
+            document.getElementById('fileInput').value = '';
+
+            // Reset buttons
+            const submitBtn = document.getElementById('submitBtn');
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = 'Submit Batch Job';
+
+            // Clear status
+            document.getElementById('status').className = 'status';
+            document.getElementById('status').textContent = '';
+        }
+
+        function showStatus(message, type) {
+            const status = document.getElementById('status');
+            status.className = 'status ' + type;
+            status.textContent = message;
+        }
+    </script>
+</body>
+</html>
+
