@@ -31,3 +31,12 @@ build/
 ### VS Code ###
 .vscode/
 logs/pdfeditor.log
+
+# Maven build output
+/target/
+**/target/
+
+# Runtime logs and generated PDF bundles
+/logs/
+/output/
+*.log
