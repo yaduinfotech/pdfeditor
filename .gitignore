@@ -31,3 +31,9 @@ build/
 ### VS Code ###
 .vscode/
 logs/pdfeditor.log
+
+# Generated build output and runtime data
+/target/
+/logs/
+/output/
+*.class
