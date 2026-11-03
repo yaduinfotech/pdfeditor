@@ -21,4 +21,4 @@ jobs:
           java-version: "21"
           cache: maven
       - name: Run Maven verification
-        run: ./mvnw -B verify
+        run: bash ./mvnw -B verify
