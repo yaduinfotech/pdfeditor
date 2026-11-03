@@ -1,7 +1,6 @@
 package com.yaduinfotech.pdfeditor.jobs;
 
 import org.springframework.stereotype.Component;
-import java.util.Collection;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Component
@@ -17,7 +16,4 @@ public class JobStore {
         return jobs.get(jobId);
     }
 
-    public Collection<PdfJobStatus> getAll() {
-        return jobs.values();
-    }
 }
